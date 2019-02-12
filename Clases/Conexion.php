@@ -3,8 +3,8 @@
  class Conectar {
 
 	private $servidor="localhost";
-	private $usuario="root";
-	private $password="12345";
+	private $usuario="usuario_inmobiliaria";
+	private $password="muysecreta";
 	private $bd="vibeard";
 
 	public function conexion(){

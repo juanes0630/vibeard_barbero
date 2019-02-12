@@ -13,13 +13,13 @@
 
 
  <?php  
- require_once '../clases/Conexion.php';
- $c=new conectar();
- $conexion=$c->conexion();
- $sql="SELECT * FROM vta_reserva";
- $reser= mysqli_query($conexion, $sql);
- $vta2="SELECT * FROM vta_reserva2";
- $reser2=mysqli_query($conexion, $vta2);
+    require_once '../Clases/Conexion.php';
+    $c=new conectar();
+    $conexion=$c->conexion();
+    $sql="SELECT * FROM vta_reserva";
+    $reser= mysqli_query($conexion, $sql);
+    $vta2="SELECT * FROM vta_reserva2";
+    $reser2=mysqli_query($conexion, $vta2);
  ?>
  <script>
   function cambiarColor(){

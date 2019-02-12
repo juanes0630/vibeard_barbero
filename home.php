@@ -252,7 +252,7 @@
                 </a>
             </li>
             <li>
-                <a href="vistas/frm_horario_barbero.php" id="nav_letra" target="iframe">
+                <a href="/Librerias/calendario/" id="nav_letra" target="iframe">
                     &nbsp;&nbsp;&nbsp;&nbsp;Reserva
                 </a>
             </li>
