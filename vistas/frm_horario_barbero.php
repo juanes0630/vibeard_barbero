@@ -60,88 +60,55 @@
             </tr>
           </thead>
           <tbody>
-           <?php while ($vector=mysqli_fetch_array($reser)){ 
-            if ($vector[4]= $i) {?>
-            <tr id="prueba" style="text-align: left;">
-              <td><?php  echo  $i.':'.$j;?></td>
-            <td><?php echo $vector[3];?></td>
-            <td><?php echo $vector2[8].' '.$vector2[9];?></td>
-            <td><?php echo $vector[8].' '. $vector[9];?></td>
-            <td style="text-align: center;"><?php echo $vector[10];?></td>
-            <td style="text-align: center;"><?php echo $vector[11];?></td>
-            <td><button type="button" onclick="cambiarColor();" class="btn btn-info">No Disponible</button>
-              &nbsp;<a href="frm_updated_puntos.php?docid=<?php echo $vector[1]; ?>" class="btn btn-success" onclick="javascript:window.location.reload();">A.Puntos </a>
-            </td>
-            <?php  }?> 
 
-            <?php  
-            $vector2=mysqli_fetch_array($reser2);
-            for ($i= 7; $i<=19; $i++){
+            <?php 
+            $i=0;
+            while ( $i<=19 ){
+              
+              $vector=mysqli_fetch_array($reser);
+               $vector2=mysqli_fetch_array($reser2);
 
-              for ($j=0; $j <=30 ; $j+=30) { 
+            for ($i= 8; $i<=19; $i++){
+
+
+               for ($j=0; $j <=30 ; $j+=30) { 
                 if ($j==0) {
                   $j='00';
-                }
-                $hor=$i.':'.$j;
-
-                ?>
+                  $hora=$i.':'.$j;
+                }               
                 
+                ?>
+                <tr id="prueba" style="text-align: left;">
 
 
 
 
-                 
+                  <td><?php  echo  $i.':'.$j;?></td>
+                  <td id="prueba"><?php echo $vector[3];?></td>
+                  <td id="prueba"><?php echo $vector2[8].' '.$vector2[9];?></td>
+                  <td id="prueba"><?php echo $vector[8].' '. $vector[9];?></td>
+                  <td id="prueba" style="text-align: center;"><?php echo $vector[10];?></td>
+                  <td id="prueba" style="text-align: center;"><?php echo $vector[11];?></td>         
 
+                </tr>
 
+              </tbody>
+              <?php  }}}?>
+            </table>
+            <inpu type="boton" value="actualizar" class="btn btn-warning" onclick="javascript:window.location.reload();"/>
+          </div>
+        </div>
+      </div>
 
-
-
-
-
-
-
-
-
-
-
-                 <?php  }}}?>
-               </tr>
-
-             </tbody>
-           </table>
-           <inpu type="boton" value="actualizar" class="btn btn-warning" onclick="javascript:window.location.reload();"/>
-         </div>
-       </div>
-     </div>
-
-
-     <section id="tabla">
-      <table border="1">
-        <tr>
-          <td onclick="change(this);">Celda 1</td>
-          <td onclick="change2(this);">celda 2</font></td>
-        </tr>
-      </table>
-    </section>
-
-
-    <script>
-      function reFresh() 
-      location.reload(true)
-    }
-    /* Establece el tiempo 1 minuto = 60000 milliseconds. */
-    window.setInterval("reFresh()",60000);
+      <script>
+        function reFresh() 
+        location.reload(true)
+      }
+      /* Establece el tiempo 1 minuto = 60000 milliseconds. */
+      window.setInterval("reFresh()",60000);
 // -->
 
 </script>
-<?php 
-
-
-
-
-
-
-?>
 
 
 

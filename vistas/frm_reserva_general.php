@@ -10,6 +10,14 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <meta name="viewport" content="width device-width initial scale =1">
   <meta charset="utf-8">
+
+  <?php 
+  require_once('../Clases/conexion.php');
+  $c=new conectar();
+  $conexion=$c->conexion();
+  $reserva="SELECT * FROM vta_reserva2 WHERE estado = 2";
+  $rreserva=mysqli_query($conexion, $reserva);
+  ?>
 </head>
 <body  background="../img/fondo.png" background-size: 100% 1500% background-repeat: no-repeat; style="background-color: #111; ">
 
@@ -46,22 +54,44 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th>08:00 am</th>
-              <td><button type="button" class="btn btn-success"></button></td>
-              <td><button type="button" class="btn btn-success"></button></td>
-              <td><button type="button" class="btn btn-success"></button></td>
-              <td><button type="button" class="btn btn-success"></button></td>
-              <td><button type="button" class="btn btn-success"></button></td>
-              <td><button type="button" class="btn btn-success"></button></td>
-              <td><button type="button" class="btn btn-success"></button></td>
-              <td><button type="button" class="btn btn-success"></button></td>
-              <td><button type="button" class="btn btn-success"></button></td> 
-            </tr>
-          </tbody>
-        </table>
+            <?php while($reservas=mysqli_fetch_array($rreserva)){
+
+
+              ?>
+
+              
+              <?php for ($i= 7; $i<=19; $i++){
+
+                for ($j=0; $j <=30 ; $j+=30) { 
+                  if ($j==0) {
+                    $j='00';
+                  }
+                  $hor=$i.':'.$j;
+                }
+              }?>
+              <tr>
+                <td><?php  echo  $i.':'.$j;?></td>
+
+
+
+
+
+                <td><?php echo $reservas[10];?></td>
+                <td><button type="button" class="btn btn-success"></button></td>
+                <td><button type="button" class="btn btn-success"></button></td>
+                <td><button type="button" class="btn btn-success"></button></td>
+                <td><button type="button" class="btn btn-success"></button></td>
+                <td><button type="button" class="btn btn-success"></button></td>
+                <td><button type="button" class="btn btn-success"></button></td>
+                <td><button type="button" class="btn btn-success"></button></td>
+                <td><button type="button" class="btn btn-success"></button></td> 
+              </tr>
+              <?php } ?>
+            </tbody>
+
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-</body>
-</html>
+  </body>
+  </html>

@@ -1,24 +1,28 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
--- http://www.phpmyadmin.net
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-02-2019 a las 04:54:18
--- Versión del servidor: 5.6.20
--- Versión de PHP: 5.5.15
+-- Tiempo de generación: 12-02-2019 a las 04:26:28
+-- Versión del servidor: 5.7.24-log
+-- Versión de PHP: 7.1.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de datos: `vibeard`
 --
+CREATE DATABASE IF NOT EXISTS `vibeard` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+USE `vibeard`;
 
 -- --------------------------------------------------------
 
@@ -26,13 +30,13 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `sysdiagrams`
 --
 
-CREATE TABLE IF NOT EXISTS `sysdiagrams` (
+CREATE TABLE `sysdiagrams` (
   `name` varchar(128) CHARACTER SET utf8 NOT NULL,
   `principal_id` int(11) NOT NULL,
-`diagram_id` int(11) NOT NULL,
+  `diagram_id` int(11) NOT NULL,
   `version` int(11) DEFAULT NULL,
   `definition` longblob
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -40,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `sysdiagrams` (
 -- Estructura de tabla para la tabla `tbl_barbero_corte`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_barbero_corte` (
+CREATE TABLE `tbl_barbero_corte` (
   `docid_barbero` varchar(15) NOT NULL,
   `codigo_producto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -51,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `tbl_barbero_corte` (
 -- Estructura de tabla para la tabla `tbl_compras`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_compras` (
+CREATE TABLE `tbl_compras` (
   `codigo` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `hora` time NOT NULL,
@@ -65,7 +69,8 @@ CREATE TABLE IF NOT EXISTS `tbl_compras` (
 INSERT INTO `tbl_compras` (`codigo`, `fecha`, `hora`, `proveedor`) VALUES
 (1, '2019-01-10', '07:28:38', '1036545698'),
 (2, '2019-01-01', '22:10:00', '1036545698'),
-(3, '2019-01-01', '17:12:00', '1036545698');
+(3, '2019-01-01', '17:12:00', '1036545698'),
+(4, '2019-02-11', '12:09:00', '1036545698');
 
 -- --------------------------------------------------------
 
@@ -73,7 +78,7 @@ INSERT INTO `tbl_compras` (`codigo`, `fecha`, `hora`, `proveedor`) VALUES
 -- Estructura de tabla para la tabla `tbl_compra_producto`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_compra_producto` (
+CREATE TABLE `tbl_compra_producto` (
   `codigocompra` int(11) NOT NULL,
   `codigoproducto` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
@@ -87,7 +92,9 @@ CREATE TABLE IF NOT EXISTS `tbl_compra_producto` (
 INSERT INTO `tbl_compra_producto` (`codigocompra`, `codigoproducto`, `cantidad`, `valorunidad`) VALUES
 (2, 1, 12, 12000),
 (2, 2, 22, 23000),
-(3, 1, 12, 12000);
+(3, 1, 12, 12000),
+(4, 1, 5, 12000),
+(4, 2, 3, 23000);
 
 -- --------------------------------------------------------
 
@@ -95,7 +102,7 @@ INSERT INTO `tbl_compra_producto` (`codigocompra`, `codigoproducto`, `cantidad`,
 -- Estructura de tabla para la tabla `tbl_estado`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_estado` (
+CREATE TABLE `tbl_estado` (
   `codigo` varchar(2) NOT NULL,
   `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -114,7 +121,7 @@ INSERT INTO `tbl_estado` (`codigo`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `tbl_faq`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_faq` (
+CREATE TABLE `tbl_faq` (
   `codigo` int(11) NOT NULL,
   `nombre` varchar(200) CHARACTER SET utf8 NOT NULL,
   `descripcion` varchar(3000) CHARACTER SET utf8 NOT NULL
@@ -127,7 +134,9 @@ CREATE TABLE IF NOT EXISTS `tbl_faq` (
 INSERT INTO `tbl_faq` (`codigo`, `nombre`, `descripcion`) VALUES
 (1, 'Â¿Como hacer una reserva?', 'pregunta por defecto'),
 (2, 'Â¿Como registrarme en Vibeard?', 'Entra al apartado de registro al lado del login y da click a registrar'),
-(3, 'Â¿Como es un lorem ipsum?', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod 									tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 									quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 									consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse 									cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 									proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
+(1, 'Â¿Como hacer una reserva?', 'pregunta por defecto'),
+(2, 'Â¿Como registrarme en Vibeard?', 'Entra al apartado de registro al lado del login y da click a registrar'),
+(4, 'oe', 'bien o q ');
 
 -- --------------------------------------------------------
 
@@ -135,7 +144,7 @@ INSERT INTO `tbl_faq` (`codigo`, `nombre`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `tbl_genero`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_genero` (
+CREATE TABLE `tbl_genero` (
   `codigo` varchar(2) NOT NULL,
   `nombre` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -154,7 +163,7 @@ INSERT INTO `tbl_genero` (`codigo`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `tbl_informacion`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_informacion` (
+CREATE TABLE `tbl_informacion` (
   `codigo` int(11) NOT NULL,
   `nombre` varchar(50) CHARACTER SET utf8 NOT NULL,
   `descripcion` varchar(3000) COLLATE utf8_spanish_ci NOT NULL,
@@ -178,8 +187,8 @@ INSERT INTO `tbl_informacion` (`codigo`, `nombre`, `descripcion`, `foto`) VALUES
 -- Estructura de tabla para la tabla `tbl_producto`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_producto` (
-`codigo` int(11) NOT NULL,
+CREATE TABLE `tbl_producto` (
+  `codigo` int(11) NOT NULL,
   `nombre` varchar(40) NOT NULL,
   `cantidad_existente` int(11) DEFAULT NULL,
   `valor_producto` int(11) NOT NULL,
@@ -190,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `tbl_producto` (
   `foto2` mediumblob,
   `foto3` mediumblob,
   `foto4` mediumblob
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_producto`
@@ -206,7 +215,7 @@ INSERT INTO `tbl_producto` (`codigo`, `nombre`, `cantidad_existente`, `valor_pro
 -- Estructura de tabla para la tabla `tbl_proveedor`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_proveedor` (
+CREATE TABLE `tbl_proveedor` (
   `nit` varchar(15) NOT NULL,
   `nombre` varchar(40) NOT NULL,
   `apellidos` varchar(40) DEFAULT NULL,
@@ -230,7 +239,7 @@ INSERT INTO `tbl_proveedor` (`nit`, `nombre`, `apellidos`, `telefono_fijo`, `cel
 -- Estructura de tabla para la tabla `tbl_proveedor_producto`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_proveedor_producto` (
+CREATE TABLE `tbl_proveedor_producto` (
   `nitproveedor` varchar(15) NOT NULL,
   `codigoproducto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -241,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `tbl_proveedor_producto` (
 -- Estructura de tabla para la tabla `tbl_reserva`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_reserva` (
+CREATE TABLE `tbl_reserva` (
   `codigo` int(11) NOT NULL,
   `cliente` varchar(15) NOT NULL,
   `barbero` varchar(15) NOT NULL,
@@ -268,7 +277,9 @@ INSERT INTO `tbl_reserva` (`codigo`, `cliente`, `barbero`, `fecha`, `hora`, `est
 (9, '1036404796', '10354258796', '2019-02-05', '19:30:00', '02', 12, 1),
 (10, '1036404796', '10354258796', '2019-02-05', '12:30:00', '02', 12, 1),
 (11, '1036404796', '10354258796', '2019-02-05', '14:00:00', '02', 12, 1),
-(12, '1036404796', '10354258796', '2019-02-05', '16:00:00', '02', 12, 1);
+(12, '1036404796', '10354258796', '2019-02-05', '16:00:00', '02', 12, 1),
+(13, '123456789', '10354258796', '2019-02-20', '07:04:00', '02', 50, 1),
+(14, '21347234', '10354258796', '2019-02-13', '15:30:00', '02', 23, 2);
 
 -- --------------------------------------------------------
 
@@ -276,7 +287,7 @@ INSERT INTO `tbl_reserva` (`codigo`, `cliente`, `barbero`, `fecha`, `hora`, `est
 -- Estructura de tabla para la tabla `tbl_tipo_producto`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_tipo_producto` (
+CREATE TABLE `tbl_tipo_producto` (
   `codigo` varchar(2) NOT NULL,
   `nombre` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -295,7 +306,7 @@ INSERT INTO `tbl_tipo_producto` (`codigo`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `tbl_tipo_reserva`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_tipo_reserva` (
+CREATE TABLE `tbl_tipo_reserva` (
   `Codigo` int(2) NOT NULL,
   `nombre` varchar(50) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -314,10 +325,10 @@ INSERT INTO `tbl_tipo_reserva` (`Codigo`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `tbl_tipo_usuario`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_tipo_usuario` (
-`codigo` int(11) NOT NULL,
+CREATE TABLE `tbl_tipo_usuario` (
+  `codigo` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tbl_tipo_usuario`
@@ -333,7 +344,7 @@ INSERT INTO `tbl_tipo_usuario` (`codigo`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `tbl_usuario`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_usuario` (
+CREATE TABLE `tbl_usuario` (
   `docid` varchar(15) NOT NULL,
   `clave` varchar(20) NOT NULL,
   `nombre` varchar(40) NOT NULL,
@@ -355,9 +366,11 @@ CREATE TABLE IF NOT EXISTS `tbl_usuario` (
 --
 
 INSERT INTO `tbl_usuario` (`docid`, `clave`, `nombre`, `apellido`, `correo`, `telefono_fijo`, `celular`, `fecha_nacimiento`, `genero`, `foto`, `puntos_acumulados`, `puntos_redimidos`, `certificados`, `tipo_de_usuario`) VALUES
-('10354258796', 'kj', 'Julian', 'Barbero', '@man', '234567', '1234567', '2019-01-18', '01', NULL, NULL, NULL, 'este no tiene', 1),
+('10354258796', 'kj', 'Julian', 'Barbero', 'juli@jfkdc', '234567', '1234567', '2019-01-18', '01', NULL, NULL, NULL, 'este no tiene  ', 1),
+('103568655', 'hola', 'emmanuel', 'loquillo', 'emmapere0817@gmail.com', '234', '352646899', '2005-08-17', '01', NULL, 100, NULL, NULL, 2),
 ('1036404796', 'holo2', 'jhonatan yamid', 'alzate Gallego', '@yoto', '5431838', '3192934969', '2019-01-08', '01', '20180119_230920.jpg', 30, 24, '', 2),
-('123456789', 'hlo', 'juan esteban', 'pereira', '@juanes', '128739123', '13452364567', '2019-01-01', '01', NULL, 0, 0, '', 2);
+('123456789', 'hlo', 'juan esteban', 'pereira', '@juanes', '128739123', '13452364567', '2019-01-01', '01', NULL, 0, 0, '', 2),
+('21347234', 'hablalo', 'luz', 'ramirez', 'hjd@jua', '2779862', '3254625896', '1963-06-07', '02', NULL, 50, 10, NULL, 2);
 
 -- --------------------------------------------------------
 
@@ -365,7 +378,7 @@ INSERT INTO `tbl_usuario` (`docid`, `clave`, `nombre`, `apellido`, `correo`, `te
 -- Estructura de tabla para la tabla `tbl_ventas`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_ventas` (
+CREATE TABLE `tbl_ventas` (
   `codigo` int(11) NOT NULL,
   `cliente` varchar(15) NOT NULL,
   `barbero` varchar(15) NOT NULL,
@@ -387,7 +400,7 @@ INSERT INTO `tbl_ventas` (`codigo`, `cliente`, `barbero`, `fecha`, `hora`) VALUE
 -- Estructura de tabla para la tabla `tbl_venta_producto`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_venta_producto` (
+CREATE TABLE `tbl_venta_producto` (
   `codigo_venta` int(11) NOT NULL,
   `codigo_producto` int(11) NOT NULL,
   `valorunidad` int(11) NOT NULL,
@@ -407,9 +420,22 @@ INSERT INTO `tbl_venta_producto` (`codigo_venta`, `codigo_producto`, `valorunida
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `vta_producto`
+-- Estructura Stand-in para la vista `vta_nomproducto`
+-- (Véase abajo para la vista actual)
 --
-CREATE TABLE IF NOT EXISTS `vta_producto` (
+CREATE TABLE `vta_nomproducto` (
+`codigo_producto` int(11)
+,`codigo` int(11)
+,`nombre` varchar(40)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `vta_producto`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `vta_producto` (
 `codigo` int(11)
 ,`nombre` varchar(40)
 ,`cantidad_existente` int(11)
@@ -424,12 +450,69 @@ CREATE TABLE IF NOT EXISTS `vta_producto` (
 ,`id_tipo_producto` varchar(2)
 ,`descripcion` varchar(30)
 );
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `vta_profesional`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `vta_profesional` (
+`barbero` varchar(15)
+,`docid` varchar(15)
+,`nombre` varchar(40)
+,`apellido` varchar(40)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `vta_reserva`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `vta_reserva` (
+`codigo` int(11)
+,`cliente` varchar(15)
+,`barbero` varchar(15)
+,`fecha` date
+,`hora` time
+,`estado` varchar(2)
+,`puntos_redimidos` int(11)
+,`tbl_tipo_reserva_codigo` int(2)
+,`nombre` varchar(40)
+,`apellido` varchar(40)
+,`estados` varchar(50)
+,`reserva` varchar(50)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `vta_reserva2`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `vta_reserva2` (
+`codigo` int(11)
+,`cliente` varchar(15)
+,`barbero` varchar(15)
+,`fecha` date
+,`hora` time
+,`estado` varchar(2)
+,`puntos_redimidos` int(11)
+,`tbl_tipo_reserva_codigo` int(2)
+,`nombre` varchar(40)
+,`apellido` varchar(40)
+,`estados` varchar(50)
+,`reserva` varchar(50)
+);
+
 -- --------------------------------------------------------
 
 --
 -- Estructura Stand-in para la vista `vta_usuario`
+-- (Véase abajo para la vista actual)
 --
-CREATE TABLE IF NOT EXISTS `vta_usuario` (
+CREATE TABLE `vta_usuario` (
 `docid` varchar(15)
 ,`clave` varchar(20)
 ,`nombre` varchar(40)
@@ -447,6 +530,33 @@ CREATE TABLE IF NOT EXISTS `vta_usuario` (
 ,`codigo` varchar(2)
 ,`sexo` varchar(40)
 );
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `vta_venta`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `vta_venta` (
+`codigo` int(11)
+,`cliente` varchar(15)
+,`barbero` varchar(15)
+,`fecha` date
+,`hora` time
+,`nombre` varchar(40)
+,`apellido` varchar(40)
+,`puntos_acumulados` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vta_nomproducto`
+--
+DROP TABLE IF EXISTS `vta_nomproducto`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vta_nomproducto`  AS  select `vp`.`codigo_producto` AS `codigo_producto`,`p`.`codigo` AS `codigo`,`p`.`nombre` AS `nombre` from (`tbl_venta_producto` `vp` join `tbl_producto` `p` on((`vp`.`codigo_producto` = `p`.`codigo`))) ;
+
 -- --------------------------------------------------------
 
 --
@@ -454,7 +564,34 @@ CREATE TABLE IF NOT EXISTS `vta_usuario` (
 --
 DROP TABLE IF EXISTS `vta_producto`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vta_producto` AS select `p`.`codigo` AS `codigo`,`p`.`nombre` AS `nombre`,`p`.`cantidad_existente` AS `cantidad_existente`,`p`.`valor_producto` AS `valor_producto`,`p`.`descripcion_corte` AS `descripcion_corte`,`p`.`puntos` AS `puntos`,`p`.`tipo_producto` AS `tipo_producto`,`p`.`foto1` AS `foto1`,`p`.`foto2` AS `foto2`,`p`.`foto3` AS `foto3`,`p`.`foto4` AS `foto4`,`tp`.`codigo` AS `id_tipo_producto`,`tp`.`nombre` AS `descripcion` from (`tbl_producto` `p` join `tbl_tipo_producto` `tp` on((`p`.`tipo_producto` = `tp`.`codigo`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vta_producto`  AS  select `p`.`codigo` AS `codigo`,`p`.`nombre` AS `nombre`,`p`.`cantidad_existente` AS `cantidad_existente`,`p`.`valor_producto` AS `valor_producto`,`p`.`descripcion_corte` AS `descripcion_corte`,`p`.`puntos` AS `puntos`,`p`.`tipo_producto` AS `tipo_producto`,`p`.`foto1` AS `foto1`,`p`.`foto2` AS `foto2`,`p`.`foto3` AS `foto3`,`p`.`foto4` AS `foto4`,`tp`.`codigo` AS `id_tipo_producto`,`tp`.`nombre` AS `descripcion` from (`tbl_producto` `p` join `tbl_tipo_producto` `tp` on((`p`.`tipo_producto` = `tp`.`codigo`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vta_profesional`
+--
+DROP TABLE IF EXISTS `vta_profesional`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vta_profesional`  AS  select `v`.`barbero` AS `barbero`,`u`.`docid` AS `docid`,`u`.`nombre` AS `nombre`,`u`.`apellido` AS `apellido` from (`tbl_ventas` `v` join `tbl_usuario` `u` on((`v`.`barbero` = `u`.`docid`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vta_reserva`
+--
+DROP TABLE IF EXISTS `vta_reserva`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vta_reserva`  AS  select `r`.`codigo` AS `codigo`,`r`.`cliente` AS `cliente`,`r`.`barbero` AS `barbero`,`r`.`fecha` AS `fecha`,`r`.`hora` AS `hora`,`r`.`estado` AS `estado`,`r`.`puntos_redimidos` AS `puntos_redimidos`,`r`.`tbl_tipo_reserva_Codigo` AS `tbl_tipo_reserva_codigo`,`u`.`nombre` AS `nombre`,`u`.`apellido` AS `apellido`,`e`.`nombre` AS `estados`,`tpr`.`nombre` AS `reserva` from (((`tbl_reserva` `r` join `tbl_usuario` `u` on((`r`.`cliente` = `u`.`docid`))) join `tbl_estado` `e` on((`r`.`estado` = `e`.`codigo`))) join `tbl_tipo_reserva` `tpr` on((`r`.`tbl_tipo_reserva_Codigo` = `tpr`.`Codigo`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vta_reserva2`
+--
+DROP TABLE IF EXISTS `vta_reserva2`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vta_reserva2`  AS  select `r`.`codigo` AS `codigo`,`r`.`cliente` AS `cliente`,`r`.`barbero` AS `barbero`,`r`.`fecha` AS `fecha`,`r`.`hora` AS `hora`,`r`.`estado` AS `estado`,`r`.`puntos_redimidos` AS `puntos_redimidos`,`r`.`tbl_tipo_reserva_Codigo` AS `tbl_tipo_reserva_codigo`,`u`.`nombre` AS `nombre`,`u`.`apellido` AS `apellido`,`e`.`nombre` AS `estados`,`tpr`.`nombre` AS `reserva` from (((`tbl_reserva` `r` join `tbl_usuario` `u` on((`r`.`barbero` = `u`.`docid`))) join `tbl_estado` `e` on((`r`.`estado` = `e`.`codigo`))) join `tbl_tipo_reserva` `tpr` on((`r`.`tbl_tipo_reserva_Codigo` = `tpr`.`Codigo`))) ;
 
 -- --------------------------------------------------------
 
@@ -463,7 +600,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `vta_usuario`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vta_usuario` AS select `u`.`docid` AS `docid`,`u`.`clave` AS `clave`,`u`.`nombre` AS `nombre`,`u`.`apellido` AS `apellido`,`u`.`correo` AS `correo`,`u`.`telefono_fijo` AS `telefono_fijo`,`u`.`celular` AS `celular`,`u`.`fecha_nacimiento` AS `fecha_nacimiento`,`u`.`genero` AS `genero`,`u`.`foto` AS `foto`,`u`.`puntos_acumulados` AS `puntos_acumulados`,`u`.`puntos_redimidos` AS `puntos_redimidos`,`u`.`certificados` AS `certificados`,`u`.`tipo_de_usuario` AS `tipo_de_usuario`,`g`.`codigo` AS `codigo`,`g`.`nombre` AS `sexo` from (`tbl_usuario` `u` join `tbl_genero` `g` on((`u`.`genero` = `g`.`codigo`)));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vta_usuario`  AS  select `u`.`docid` AS `docid`,`u`.`clave` AS `clave`,`u`.`nombre` AS `nombre`,`u`.`apellido` AS `apellido`,`u`.`correo` AS `correo`,`u`.`telefono_fijo` AS `telefono_fijo`,`u`.`celular` AS `celular`,`u`.`fecha_nacimiento` AS `fecha_nacimiento`,`u`.`genero` AS `genero`,`u`.`foto` AS `foto`,`u`.`puntos_acumulados` AS `puntos_acumulados`,`u`.`puntos_redimidos` AS `puntos_redimidos`,`u`.`certificados` AS `certificados`,`u`.`tipo_de_usuario` AS `tipo_de_usuario`,`g`.`codigo` AS `codigo`,`g`.`nombre` AS `sexo` from (`tbl_usuario` `u` join `tbl_genero` `g` on((`u`.`genero` = `g`.`codigo`))) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vta_venta`
+--
+DROP TABLE IF EXISTS `vta_venta`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vta_venta`  AS  select `v`.`codigo` AS `codigo`,`v`.`cliente` AS `cliente`,`v`.`barbero` AS `barbero`,`v`.`fecha` AS `fecha`,`v`.`hora` AS `hora`,`u`.`nombre` AS `nombre`,`u`.`apellido` AS `apellido`,`u`.`puntos_acumulados` AS `puntos_acumulados` from (`tbl_ventas` `v` join `tbl_usuario` `u` on((`v`.`cliente` = `u`.`docid`))) ;
 
 --
 -- Índices para tablas volcadas
@@ -473,103 +619,124 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Indices de la tabla `sysdiagrams`
 --
 ALTER TABLE `sysdiagrams`
- ADD PRIMARY KEY (`diagram_id`), ADD UNIQUE KEY `uk_principal_name` (`principal_id`,`name`), ADD KEY `ix_tmp_autoinc` (`diagram_id`);
+  ADD PRIMARY KEY (`diagram_id`),
+  ADD UNIQUE KEY `uk_principal_name` (`principal_id`,`name`),
+  ADD KEY `ix_tmp_autoinc` (`diagram_id`);
 
 --
 -- Indices de la tabla `tbl_barbero_corte`
 --
 ALTER TABLE `tbl_barbero_corte`
- ADD PRIMARY KEY (`docid_barbero`,`codigo_producto`), ADD KEY `fk_tbl_barbero_corte_tbl_producto` (`codigo_producto`);
+  ADD PRIMARY KEY (`docid_barbero`,`codigo_producto`),
+  ADD KEY `fk_tbl_barbero_corte_tbl_producto` (`codigo_producto`);
 
 --
 -- Indices de la tabla `tbl_compras`
 --
 ALTER TABLE `tbl_compras`
- ADD PRIMARY KEY (`codigo`), ADD KEY `ix_tmp_autoinc` (`codigo`), ADD KEY `fk_tbl_compras_tbl_proveedor1` (`proveedor`);
+  ADD PRIMARY KEY (`codigo`),
+  ADD KEY `ix_tmp_autoinc` (`codigo`),
+  ADD KEY `fk_tbl_compras_tbl_proveedor1` (`proveedor`);
 
 --
 -- Indices de la tabla `tbl_compra_producto`
 --
 ALTER TABLE `tbl_compra_producto`
- ADD PRIMARY KEY (`codigocompra`,`codigoproducto`), ADD KEY `fk_tbl_compra_producto_tbl_producto` (`codigoproducto`);
+  ADD PRIMARY KEY (`codigocompra`,`codigoproducto`),
+  ADD KEY `fk_tbl_compra_producto_tbl_producto` (`codigoproducto`);
 
 --
 -- Indices de la tabla `tbl_estado`
 --
 ALTER TABLE `tbl_estado`
- ADD PRIMARY KEY (`codigo`);
+  ADD PRIMARY KEY (`codigo`);
 
 --
 -- Indices de la tabla `tbl_genero`
 --
 ALTER TABLE `tbl_genero`
- ADD PRIMARY KEY (`codigo`);
+  ADD PRIMARY KEY (`codigo`);
 
 --
 -- Indices de la tabla `tbl_informacion`
 --
 ALTER TABLE `tbl_informacion`
- ADD PRIMARY KEY (`codigo`);
+  ADD PRIMARY KEY (`codigo`);
 
 --
 -- Indices de la tabla `tbl_producto`
 --
 ALTER TABLE `tbl_producto`
- ADD PRIMARY KEY (`codigo`), ADD KEY `ix_tmp_autoinc` (`codigo`), ADD KEY `fk_tbl_producto_tbl_tipo_producto` (`tipo_producto`);
+  ADD PRIMARY KEY (`codigo`),
+  ADD KEY `ix_tmp_autoinc` (`codigo`),
+  ADD KEY `fk_tbl_producto_tbl_tipo_producto` (`tipo_producto`);
 
 --
 -- Indices de la tabla `tbl_proveedor`
 --
 ALTER TABLE `tbl_proveedor`
- ADD PRIMARY KEY (`nit`);
+  ADD PRIMARY KEY (`nit`);
 
 --
 -- Indices de la tabla `tbl_proveedor_producto`
 --
 ALTER TABLE `tbl_proveedor_producto`
- ADD PRIMARY KEY (`nitproveedor`,`codigoproducto`), ADD KEY `fk_tbl_proveedor_producto_tbl_producto` (`codigoproducto`);
+  ADD PRIMARY KEY (`nitproveedor`,`codigoproducto`),
+  ADD KEY `fk_tbl_proveedor_producto_tbl_producto` (`codigoproducto`);
 
 --
 -- Indices de la tabla `tbl_reserva`
 --
 ALTER TABLE `tbl_reserva`
- ADD PRIMARY KEY (`codigo`,`tbl_tipo_reserva_Codigo`), ADD KEY `ix_tmp_autoinc` (`codigo`), ADD KEY `fk_tbl_reserva_tbl_usuario` (`cliente`), ADD KEY `fk_tbl_reserva_tbl_usuario1` (`barbero`), ADD KEY `fk_tbl_reserva_tblestado` (`estado`), ADD KEY `fk_tbl_reserva_tbl_tipo_reserva1_idx` (`tbl_tipo_reserva_Codigo`);
+  ADD PRIMARY KEY (`codigo`,`tbl_tipo_reserva_Codigo`),
+  ADD KEY `ix_tmp_autoinc` (`codigo`),
+  ADD KEY `fk_tbl_reserva_tbl_usuario` (`cliente`),
+  ADD KEY `fk_tbl_reserva_tbl_usuario1` (`barbero`),
+  ADD KEY `fk_tbl_reserva_tblestado` (`estado`),
+  ADD KEY `fk_tbl_reserva_tbl_tipo_reserva1_idx` (`tbl_tipo_reserva_Codigo`);
 
 --
 -- Indices de la tabla `tbl_tipo_producto`
 --
 ALTER TABLE `tbl_tipo_producto`
- ADD PRIMARY KEY (`codigo`);
+  ADD PRIMARY KEY (`codigo`);
 
 --
 -- Indices de la tabla `tbl_tipo_reserva`
 --
 ALTER TABLE `tbl_tipo_reserva`
- ADD PRIMARY KEY (`Codigo`);
+  ADD PRIMARY KEY (`Codigo`);
 
 --
 -- Indices de la tabla `tbl_tipo_usuario`
 --
 ALTER TABLE `tbl_tipo_usuario`
- ADD PRIMARY KEY (`codigo`), ADD KEY `ix_tmp_autoinc` (`codigo`);
+  ADD PRIMARY KEY (`codigo`),
+  ADD KEY `ix_tmp_autoinc` (`codigo`);
 
 --
 -- Indices de la tabla `tbl_usuario`
 --
 ALTER TABLE `tbl_usuario`
- ADD PRIMARY KEY (`docid`), ADD KEY `fk_tbl_usuario_tbl_genero` (`genero`), ADD KEY `fk_tbl_usuario_tbl_tipo_usuario` (`tipo_de_usuario`);
+  ADD PRIMARY KEY (`docid`),
+  ADD KEY `fk_tbl_usuario_tbl_genero` (`genero`),
+  ADD KEY `fk_tbl_usuario_tbl_tipo_usuario` (`tipo_de_usuario`);
 
 --
 -- Indices de la tabla `tbl_ventas`
 --
 ALTER TABLE `tbl_ventas`
- ADD PRIMARY KEY (`codigo`), ADD KEY `ix_tmp_autoinc` (`codigo`), ADD KEY `fk_tbl_ventas_tbl_usuario` (`cliente`), ADD KEY `fk_tbl_ventas_tbl_usuario1` (`barbero`);
+  ADD PRIMARY KEY (`codigo`),
+  ADD KEY `ix_tmp_autoinc` (`codigo`),
+  ADD KEY `fk_tbl_ventas_tbl_usuario` (`cliente`),
+  ADD KEY `fk_tbl_ventas_tbl_usuario1` (`barbero`);
 
 --
 -- Indices de la tabla `tbl_venta_producto`
 --
 ALTER TABLE `tbl_venta_producto`
- ADD PRIMARY KEY (`codigo_venta`,`codigo_producto`), ADD KEY `fk_tbl_venta_producto_tbl_producto` (`codigo_producto`);
+  ADD PRIMARY KEY (`codigo_venta`,`codigo_producto`),
+  ADD KEY `fk_tbl_venta_producto_tbl_producto` (`codigo_producto`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -579,17 +746,20 @@ ALTER TABLE `tbl_venta_producto`
 -- AUTO_INCREMENT de la tabla `sysdiagrams`
 --
 ALTER TABLE `sysdiagrams`
-MODIFY `diagram_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `diagram_id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `tbl_producto`
 --
 ALTER TABLE `tbl_producto`
-MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT de la tabla `tbl_tipo_usuario`
 --
 ALTER TABLE `tbl_tipo_usuario`
-MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- Restricciones para tablas volcadas
 --
@@ -598,64 +768,65 @@ MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- Filtros para la tabla `tbl_barbero_corte`
 --
 ALTER TABLE `tbl_barbero_corte`
-ADD CONSTRAINT `fk_tbl_barbero_corte_tbl_producto` FOREIGN KEY (`codigo_producto`) REFERENCES `tbl_producto` (`codigo`),
-ADD CONSTRAINT `fk_tbl_barbero_corte_tbl_usuario` FOREIGN KEY (`docid_barbero`) REFERENCES `tbl_usuario` (`docid`);
+  ADD CONSTRAINT `fk_tbl_barbero_corte_tbl_producto` FOREIGN KEY (`codigo_producto`) REFERENCES `tbl_producto` (`codigo`),
+  ADD CONSTRAINT `fk_tbl_barbero_corte_tbl_usuario` FOREIGN KEY (`docid_barbero`) REFERENCES `tbl_usuario` (`docid`);
 
 --
 -- Filtros para la tabla `tbl_compras`
 --
 ALTER TABLE `tbl_compras`
-ADD CONSTRAINT `fk_tbl_compras_tbl_proveedor1` FOREIGN KEY (`proveedor`) REFERENCES `tbl_proveedor` (`nit`);
+  ADD CONSTRAINT `fk_tbl_compras_tbl_proveedor1` FOREIGN KEY (`proveedor`) REFERENCES `tbl_proveedor` (`nit`);
 
 --
 -- Filtros para la tabla `tbl_compra_producto`
 --
 ALTER TABLE `tbl_compra_producto`
-ADD CONSTRAINT `fk_tbl_compra_producto_tbl_compras` FOREIGN KEY (`codigocompra`) REFERENCES `tbl_compras` (`codigo`),
-ADD CONSTRAINT `fk_tbl_compra_producto_tbl_producto` FOREIGN KEY (`codigoproducto`) REFERENCES `tbl_producto` (`codigo`);
+  ADD CONSTRAINT `fk_tbl_compra_producto_tbl_compras` FOREIGN KEY (`codigocompra`) REFERENCES `tbl_compras` (`codigo`),
+  ADD CONSTRAINT `fk_tbl_compra_producto_tbl_producto` FOREIGN KEY (`codigoproducto`) REFERENCES `tbl_producto` (`codigo`);
 
 --
 -- Filtros para la tabla `tbl_producto`
 --
 ALTER TABLE `tbl_producto`
-ADD CONSTRAINT `fk_tbl_producto_tbl_tipo_producto` FOREIGN KEY (`tipo_producto`) REFERENCES `tbl_tipo_producto` (`codigo`);
+  ADD CONSTRAINT `fk_tbl_producto_tbl_tipo_producto` FOREIGN KEY (`tipo_producto`) REFERENCES `tbl_tipo_producto` (`codigo`);
 
 --
 -- Filtros para la tabla `tbl_proveedor_producto`
 --
 ALTER TABLE `tbl_proveedor_producto`
-ADD CONSTRAINT `fk_tbl_proveedor_producto_tbl_producto` FOREIGN KEY (`codigoproducto`) REFERENCES `tbl_producto` (`codigo`),
-ADD CONSTRAINT `fk_tbl_proveedor_producto_tbl_proveedpor` FOREIGN KEY (`nitproveedor`) REFERENCES `tbl_proveedor` (`nit`);
+  ADD CONSTRAINT `fk_tbl_proveedor_producto_tbl_producto` FOREIGN KEY (`codigoproducto`) REFERENCES `tbl_producto` (`codigo`),
+  ADD CONSTRAINT `fk_tbl_proveedor_producto_tbl_proveedpor` FOREIGN KEY (`nitproveedor`) REFERENCES `tbl_proveedor` (`nit`);
 
 --
 -- Filtros para la tabla `tbl_reserva`
 --
 ALTER TABLE `tbl_reserva`
-ADD CONSTRAINT `fk_tbl_reserva_tbl_tipo_reserva1` FOREIGN KEY (`tbl_tipo_reserva_Codigo`) REFERENCES `tbl_tipo_reserva` (`Codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_tbl_reserva_tbl_usuario` FOREIGN KEY (`cliente`) REFERENCES `tbl_usuario` (`docid`),
-ADD CONSTRAINT `fk_tbl_reserva_tbl_usuario1` FOREIGN KEY (`barbero`) REFERENCES `tbl_usuario` (`docid`),
-ADD CONSTRAINT `fk_tbl_reserva_tblestado` FOREIGN KEY (`estado`) REFERENCES `tbl_estado` (`codigo`);
+  ADD CONSTRAINT `fk_tbl_reserva_tbl_tipo_reserva1` FOREIGN KEY (`tbl_tipo_reserva_Codigo`) REFERENCES `tbl_tipo_reserva` (`Codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tbl_reserva_tbl_usuario` FOREIGN KEY (`cliente`) REFERENCES `tbl_usuario` (`docid`),
+  ADD CONSTRAINT `fk_tbl_reserva_tbl_usuario1` FOREIGN KEY (`barbero`) REFERENCES `tbl_usuario` (`docid`),
+  ADD CONSTRAINT `fk_tbl_reserva_tblestado` FOREIGN KEY (`estado`) REFERENCES `tbl_estado` (`codigo`);
 
 --
 -- Filtros para la tabla `tbl_usuario`
 --
 ALTER TABLE `tbl_usuario`
-ADD CONSTRAINT `fk_tbl_usuario_tbl_genero` FOREIGN KEY (`genero`) REFERENCES `tbl_genero` (`codigo`),
-ADD CONSTRAINT `fk_tbl_usuario_tbl_tipo_usuario` FOREIGN KEY (`tipo_de_usuario`) REFERENCES `tbl_tipo_usuario` (`codigo`);
+  ADD CONSTRAINT `fk_tbl_usuario_tbl_genero` FOREIGN KEY (`genero`) REFERENCES `tbl_genero` (`codigo`),
+  ADD CONSTRAINT `fk_tbl_usuario_tbl_tipo_usuario` FOREIGN KEY (`tipo_de_usuario`) REFERENCES `tbl_tipo_usuario` (`codigo`);
 
 --
 -- Filtros para la tabla `tbl_ventas`
 --
 ALTER TABLE `tbl_ventas`
-ADD CONSTRAINT `fk_tbl_ventas_tbl_usuario` FOREIGN KEY (`cliente`) REFERENCES `tbl_usuario` (`docid`),
-ADD CONSTRAINT `fk_tbl_ventas_tbl_usuario1` FOREIGN KEY (`barbero`) REFERENCES `tbl_usuario` (`docid`);
+  ADD CONSTRAINT `fk_tbl_ventas_tbl_usuario` FOREIGN KEY (`cliente`) REFERENCES `tbl_usuario` (`docid`),
+  ADD CONSTRAINT `fk_tbl_ventas_tbl_usuario1` FOREIGN KEY (`barbero`) REFERENCES `tbl_usuario` (`docid`);
 
 --
 -- Filtros para la tabla `tbl_venta_producto`
 --
 ALTER TABLE `tbl_venta_producto`
-ADD CONSTRAINT `fk_tbl_venta_producto_tbl_producto` FOREIGN KEY (`codigo_producto`) REFERENCES `tbl_producto` (`codigo`),
-ADD CONSTRAINT `fk_tbl_venta_producto_tbl_ventas` FOREIGN KEY (`codigo_venta`) REFERENCES `tbl_ventas` (`codigo`);
+  ADD CONSTRAINT `fk_tbl_venta_producto_tbl_producto` FOREIGN KEY (`codigo_producto`) REFERENCES `tbl_producto` (`codigo`),
+  ADD CONSTRAINT `fk_tbl_venta_producto_tbl_ventas` FOREIGN KEY (`codigo_venta`) REFERENCES `tbl_ventas` (`codigo`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
